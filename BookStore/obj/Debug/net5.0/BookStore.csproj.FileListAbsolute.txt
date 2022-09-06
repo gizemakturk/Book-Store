@@ -1,0 +1,7 @@
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.csproj.AssemblyReference.cache
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.AssemblyInfoInputs.cache
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.AssemblyInfo.cs
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.csproj.CoreCompileInputs.cache
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Hp\source\repos\BookStore\BookStore\obj\Debug\net5.0\BookStore.MvcApplicationPartsAssemblyInfo.cache
