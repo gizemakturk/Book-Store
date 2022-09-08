@@ -1,9 +1,13 @@
-﻿using BookStore.DBOperations;
+﻿using BookStore.BookOperations.CreateBook;
+
+using BookStore.BookOperations_GetBooks;
+using BookStore.DBOperations;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static BookStore.BookOperations.CreateBook.CreateBookCommand;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,10 +27,13 @@ namespace BookStore.Controllers
         //
         // GET: api/<BookController>
         [HttpGet]
-        public List<Book> GetBooks()
+        public IActionResult GetBooks()
         {
-          var booklist=_context.Books.OrderBy(x=>x.Id).ToList<Book>();
-            return booklist;
+            //var booklist=_context.Books.OrderBy(x=>x.Id).ToList<Book>();
+            //  return booklist;
+            GetBooksQuery query = new GetBooksQuery(_context);
+            var result = query.Handle();
+            return Ok(result);
         }
         //route
         // GET api/<BookController>/5
@@ -46,13 +53,25 @@ namespace BookStore.Controllers
         //}
         // POST api/<BookController>
         [HttpPost]
-        public IActionResult AddBook([FromBody] Book newBook)
+        public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
-            var book=_context.Books.SingleOrDefault(x=>x.Title==newBook.Title);
-            if (book is not null)
-                return BadRequest();
-            _context.Books.Add(newBook);
-            _context.SaveChanges();
+            CreateBookCommand command = new CreateBookCommand(_context);
+            try
+            {
+                command.Model = newBook;
+                command.Handle();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            //var book=_context.Books.SingleOrDefault(x=>x.Title==newBook.Title);
+            //if (book is not null)
+            //    return BadRequest();
+            //_context.Books.Add(newBook);
+            //_context.SaveChanges();
             return Ok();    
 
         }
@@ -84,7 +103,7 @@ namespace BookStore.Controllers
 
             _context.Books.Remove(book);
             _context.SaveChanges();
-
+ 
             return Ok();
         }
     }
