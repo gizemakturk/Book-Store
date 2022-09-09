@@ -1,4 +1,5 @@
-﻿using BookStore.BookOperations.CreateBook;
+﻿using AutoMapper;
+using BookStore.BookOperations.CreateBook;
 using BookStore.BookOperations.DeleteBook;
 using BookStore.BookOperations.GetBookDetail;
 using BookStore.BookOperations.UpdateBook;
@@ -21,12 +22,15 @@ namespace BookStore.Controllers
     public class BookController : ControllerBase
     {
         private readonly BookStoreDbContext _context;
-        public BookController(BookStoreDbContext context)
+        private readonly IMapper _mapper;
+
+        public BookController(BookStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-       // private static List<Book> BookList = new List<Book>();
+        // private static List<Book> BookList = new List<Book>();
         //
         // GET: api/<BookController>
         [HttpGet]
@@ -34,7 +38,7 @@ namespace BookStore.Controllers
         {
             //var booklist=_context.Books.OrderBy(x=>x.Id).ToList<Book>();
             //  return booklist;
-            GetBooksQuery query = new GetBooksQuery(_context);
+            GetBooksQuery query = new GetBooksQuery(_context,_mapper);
             var result = query.Handle();
             return Ok(result);
         }
@@ -46,7 +50,7 @@ namespace BookStore.Controllers
             BookDetailViewModel result;
             try
             {
-                GetBookDetailQuery query = new GetBookDetailQuery(_context);
+                GetBookDetailQuery query = new GetBookDetailQuery(_context,_mapper);
                 query.BookId = id;
                result=  query.Handle();
             }
@@ -69,7 +73,7 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
-            CreateBookCommand command = new CreateBookCommand(_context);
+            CreateBookCommand command = new CreateBookCommand(_context,_mapper);
             try
             {
                 command.Model = newBook;
@@ -99,7 +103,7 @@ namespace BookStore.Controllers
             {  
                 UpdateBookCommand command = new UpdateBookCommand(_context);
                 command.BookId = id;
-                command.Model = updatedBook();
+                command.Model = updatedBook;
                 command.Handle();   
                }
             catch (Exception ex)
