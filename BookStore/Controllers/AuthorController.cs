@@ -50,7 +50,7 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddAuthor([FromBody] CreateAuthorModel newAuthor)
         {
-            CreateAuthorCommand command = new CreateAuthorCommand(_context);
+            CreateAuthorCommand command = new CreateAuthorCommand(_context,_mapper);
             command.Model = newAuthor;
 
             CreateAuthorCommandValidator validator = new CreateAuthorCommandValidator();

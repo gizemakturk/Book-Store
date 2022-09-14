@@ -35,4 +35,4 @@ namespace BookStore.Application.AuthorOperations.Queries.GetAuthorDetail
         public DateTime Dob { get; set; }
     }
 }
-}
+
