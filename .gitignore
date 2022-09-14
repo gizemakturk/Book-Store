@@ -338,6 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-
+.vs
 WebApi/appsettings.Development.json
 VSIXCore/
