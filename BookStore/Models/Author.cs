@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Models
@@ -11,5 +12,7 @@ namespace BookStore.Models
         public string LastName { get; set; }
      
         public DateTime Dob { get; set; }
+
+        public ICollection<Book> Books { get; set; }
     }
 }

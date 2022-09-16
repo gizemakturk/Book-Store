@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using BookStore.BookOperations.GetBookDetail;
+using BookStore.BookOperations_GetBooks;
 using BookStore.DBOperations;
+using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookStore.Application.AuthorOperations.Queries.GetAuthorDetail
 {
@@ -18,7 +22,7 @@ namespace BookStore.Application.AuthorOperations.Queries.GetAuthorDetail
         }
         public AuthorDetailViewModel Handle()
         {
-            var author = _dbContext.Authors.Include(x => x.Book).Where(author => author.Id == AuthorId).SingleOrDefault();
+            var author = _dbContext.Authors.Include(x => x.Books).ThenInclude(x => x.Genre).Where(author => author.Id == AuthorId).SingleOrDefault();
             if (author is null)
                 throw new InvalidOperationException("Yazar bulunamadı ");
            AuthorDetailViewModel vm = _mapper.Map<AuthorDetailViewModel>(author);
@@ -28,11 +32,12 @@ namespace BookStore.Application.AuthorOperations.Queries.GetAuthorDetail
     }
     public class AuthorDetailViewModel
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
 
         public DateTime Dob { get; set; }
+        public ICollection<BooksWithoutAuthorViewModel> Books { get; set; }
     }
 }
-
+ 

@@ -1,5 +1,7 @@
 ﻿using BookStore.DBOperations;
+using BookStore.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BookStore.Application.AuthorOperations.Commands.UpdateAuthor
@@ -23,7 +25,7 @@ namespace BookStore.Application.AuthorOperations.Commands.UpdateAuthor
                 throw new InvalidOperationException(" Güncellenecek yazar bulunamadı ");
 
             author.Name = Model.Name != default ? Model.Name : author.Name;
-            author.BookId = Model.BookoId != default ? Model.BookId : author.BookId;
+            author.Books = Model.Books != default ? Model.Books : author.Books;
             
             _dbContext.SaveChanges();
 
@@ -33,8 +35,12 @@ namespace BookStore.Application.AuthorOperations.Commands.UpdateAuthor
 
         public class UpdateAuthorModel
         {
+            public int Id { get; set; }
             public string Name { get; set; }
-           
+            public string LastName { get; set; }
+            public DateTime Dob { get; set; }
+            public ICollection<Book> Books { get; set; }
+
         }
 
     }

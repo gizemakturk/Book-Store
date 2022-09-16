@@ -2,6 +2,7 @@
 using BookStore.DBOperations;
 using BookStore.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BookStore.Application.AuthorOperations.Commands.CreateAuthor
@@ -31,10 +32,11 @@ namespace BookStore.Application.AuthorOperations.Commands.CreateAuthor
         }
         public class CreateAuthorModel
         {
-            public int Id { get; set; }
+            //public int Id { get; set; }
             public string Name { get; set; }
             public string LastName { get; set; }
             public DateTime Dob { get; set; }
+           // public ICollection<Book> Books { get; set; }
         }
 
     }

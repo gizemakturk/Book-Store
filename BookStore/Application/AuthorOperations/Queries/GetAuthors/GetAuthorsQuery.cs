@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.BookOperations_GetBooks;
 using BookStore.DBOperations;
 using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace BookStore.Application.AuthorOperations.Queries.GetAuthors
         }
         public List<AuthorsViewModel> Handle()
         {
-            var authorslist = _context.Authors.Include(x => x.Book).OrderBy(x => x.Id).ToList<Author>();
+            var authorslist = _context.Authors.Include(x => x.Books).ThenInclude(x => x.Genre).OrderBy(x => x.Id).ToList<Author>();
            
             List<AuthorsViewModel> returnObj = _mapper.Map<List<AuthorsViewModel>>(authorslist);
             return returnObj;
@@ -32,5 +33,6 @@ namespace BookStore.Application.AuthorOperations.Queries.GetAuthors
         public string LastName { get; set; }
 
         public DateTime Dob { get; set; }
+        public ICollection<BooksWithoutAuthorViewModel> Books { get; set; }
     }
 }

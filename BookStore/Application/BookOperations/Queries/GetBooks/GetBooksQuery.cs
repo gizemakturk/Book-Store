@@ -19,7 +19,7 @@ namespace BookStore.BookOperations_GetBooks
             _mapper = mapper;
         }
         public List<BooksViewModel> Handle() {
-            var booklist = _dbContext.Books.Include(x=>x.Genre).OrderBy(x => x.Id).ToList<Book>();
+            var booklist = _dbContext.Books.Include(x=>x.Genre).Include(x => x.Author).OrderBy(x => x.Id).ToList<Book>();
             List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(booklist);//new List<BooksViewModel>();
            // foreach (var book in booklist)
            // {
@@ -40,6 +40,17 @@ namespace BookStore.BookOperations_GetBooks
          public string Genre { get; set; }
         public int PageCount { get; set; }
         public string PublishDate { get; set; }
+        public string Author { get; set; }
+
+
+    }
+    public class BooksWithoutAuthorViewModel
+    {
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public int PageCount { get; set; }
+        public string PublishDate { get; set; }
+
 
     }
 }
