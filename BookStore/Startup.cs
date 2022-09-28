@@ -32,7 +32,10 @@ namespace BookStore
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore", Version = "v1" });
             });
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase(databaseName: "BookStoreDB"));
+           services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<IBookStoreDbContext>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+
             //console yerine db cagýrýrsam dbye  yazar
             services.AddSingleton<ILoggerService, ConsoleLogger>();
 
