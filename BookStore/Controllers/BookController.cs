@@ -21,7 +21,7 @@ namespace BookStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class BookController : ControllerBase 
     {
         private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;

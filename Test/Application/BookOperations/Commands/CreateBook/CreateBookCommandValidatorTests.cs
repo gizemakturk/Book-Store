@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Test.Application.BookOperations.Commands.CreateBook
 {
-    internal class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
+    public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
     {
       
         [Theory]
